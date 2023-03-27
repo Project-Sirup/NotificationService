@@ -28,7 +28,13 @@ app.post("/trigger/:id", (req, res) => {
     const message = JSON.stringify(req.body);
     notify(id, message);
     res.send("done");
-})
+});
+app.post("/trigger", (req, res) => {
+    connections.forEach((connection, id) => {
+        notify(id, "{\"announcement\": \"global notification\"}");
+    });
+    res.send("done");
+});
 
 app.listen(2300, () => {
     console.log("Express listening on port " + 2300);
