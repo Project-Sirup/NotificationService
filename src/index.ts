@@ -1,8 +1,12 @@
-import express, { Response, Router } from "express";
+import cors from "cors";
+import express, { urlencoded, Router } from "express";
 import Controller from "./Controller";
 
 const app = express();
-app.use(express.json());
+app
+.use(express.json())
+.use(urlencoded({ extended: true}))
+.use(cors());
 
 const controller = new Controller();
 
@@ -13,7 +17,7 @@ app.use("/api/v1",
 )
 
 //TODO: move to .env
-const port = 2104;
+const port = process.env.NOTI_PORT;
 
 app.listen(port, () => {
     console.log(`Express listening on ${port}`);
